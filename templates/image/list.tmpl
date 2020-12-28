@@ -1,0 +1,74 @@
+{{ define "title" }}Images{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+  <div class="container-fluid px-5">
+    <div class="row">
+      <div class="col">
+        {{ if eq $.DisplayPagination 1 }}
+        <nav>
+          <ul class="pagination justify-content-center">
+            <li class="page-item"><a href="/dashboard/images?page=1" class="page-link">&lt;&lt;</a></li>
+            <li class="page-item"><a href="/dashboard/images?page={{.PagePre}}" class="page-link">&lt;</a></li>
+            <li class="page-item"><a href="/dashboard/images?page={{.Page}}" class="page-link">{{.Page}}</a></li>
+            <li class="page-item"><a href="/dashboard/images?page={{.PageNext}}" class="page-link">&gt;</a></li>
+            <li class="page-item"><a href="/dashboard/images?page={{.PageLast}}" class="page-link">&gt;&gt;</a></li>
+          </ul>
+        </nav>
+        {{ end }}
+
+<div class="container-fluid py-5">
+  <div class="row d-none d-md-flex">
+    <div class="col-12 col-md border text-center">
+     Image Name
+    </div>
+    <div class="col-12 col-md-6 border text-center">
+     Description 
+    </div>
+    <div class="col-12 col-md border text-center">
+      Upload Time
+    </div>
+    <div class="col-6 col-md border text-center">
+      View
+    </div>
+  </div>
+
+{{ range .Images}}
+  <div class="row" id="Image{{.ID}}">
+    <div class="col-12 col-md text-wrap text-break border">
+     {{.Name}}
+    </div>
+    <div class="col-12 col-md-6 text-wrap text-break border">
+     {{.Description}}
+    </div>
+    <div class="col-12 col-md border text-center">
+     {{.Time}}
+    </div>
+    <div class="col-6 col-md border text-center">
+     <a href="/dashboard/images/edit?ID={{.ID}}"><img class="img-fluid" src="/dashboard/media/view/thumbs/{{.GUID}}"></a>
+    </div>
+    <div class="col-12 d-flex d-md-none py-3">
+    </div>
+  </div>
+{{ end }}
+</div>
+
+
+
+        {{ if eq $.DisplayPagination 1 }}
+        <nav>
+          <ul class="pagination justify-content-center">
+            <li class="page-item"><a href="/dashboard/images?page=1" class="page-link">&lt;&lt;</a></li>
+            <li class="page-item"><a href="/dashboard/images?page={{.PagePre}}" class="page-link">&lt;</a></li>
+            <li class="page-item"><a href="/dashboard/images?page={{.Page}}" class="page-link">{{.Page}}</a></li>
+            <li class="page-item"><a href="/dashboard/images?page={{.PageNext}}" class="page-link">&gt;</a></li>
+            <li class="page-item"><a href="/dashboard/images?page={{.PageLast}}" class="page-link">&gt;&gt;</a></li>
+          </ul>
+        </nav>
+        {{ end }}
+
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

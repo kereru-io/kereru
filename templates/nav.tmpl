@@ -1,0 +1,66 @@
+{{ define "nav" }}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav mr-auto">
+    {{ if .UserID }}
+
+      {{ if ne $.AccessNewTweet 0 }}
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/tweets/new">New Tweet</a>
+      </li>
+      {{ end }}
+
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/tweets?page=Home">List Tweets</a>
+      </li>
+
+      {{ if ne $.AccessUploadImage 0 }}
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/images/new">New Image</a>
+      </li>
+      {{ end }}
+
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/images">List Images</a>
+      </li>
+
+      {{ if ne $.AccessUploadVideo 0 }}
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/videos/new">New Video</a>
+      </li>
+      {{ end }}
+
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/videos">List Videos</a>
+      </li>
+
+    {{ end }}
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      {{ if .UserID }}
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/user/settings">Hi {{ .UserID }}!</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/change/display">Display Options</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/logout">Logout</a>
+      </li>
+      {{ else }}
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</nav>
+{{ end }}
+
+

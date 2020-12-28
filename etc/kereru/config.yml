@@ -1,0 +1,17 @@
+DatabaseName: kereru
+DatabaseUser: twitter
+DatabasePassword: 
+WebHost: localhost
+WebPort: "8080"
+SecureCookie: false
+TLS: false
+PathToCert: ""
+PathToKey: ""
+PathToWebRoot: /home/control/admin
+UploadPath: /home/control/admin/uploads
+CsrfToken: 6512326ed1e88a534953c5434ea696cbf0cf29b8903ffab0325f6416e9971d9a
+DebugLevel: 5
+OauthConsumerKey: 
+OauthConsumerSecret: 
+OauthToken: 
+OauthTokenSecret: 

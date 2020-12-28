@@ -1,0 +1,12 @@
+[Unit]
+Description=Kereru web application
+After=mariadb.service
+
+[Service]
+User=kereru
+ExecStart=/usr/bin/kereru_app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,72 @@
+{{ define "title" }}Video{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Are you sure?</h5>
+          <button class="close" type="button" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+	  <form method="POST" action="/dashboard/videos/delete/post">
+          <input type="hidden" name="ID" value="{{.ID}}">
+          {{ .csrfField }}
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+          <button class="btn btn-primary" type="submit" value="Submit">Yes</button>
+	  </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="px-5 py-5">
+         <video width="320" height="240" controls>
+          <source src="/dashboard/media/view/{{.GUID}}" type="video/mp4">
+           Your browser does not support the video tag.
+         </video>
+
+          <p>FileSize: {{.FileSize}}</p>
+
+          <form method="POST" action="/dashboard/videos/edit/post">
+            <input type="hidden" name="ID" value="{{.ID}}">
+            <div class="form-group">
+              <label for="VideoName">Video Name</label>
+              <input class="form-control" id="VideoName" type="text" name="VideoName" value="{{.VideoName}}" rows="1" cols="150" maxlength="250" required>
+            </div>
+            <div class="form-group">
+              <label for="Description">Video Description</label>
+              <input class="form-control" id="Description" type="text" name="Description" value="{{.Description}}" rows="1" cols="150" maxlength="500">
+            </div>
+            <div class="form-group">
+              <label for="Notes">Video Notes</label>
+              <input class="form-control" id="Notes" type="text" name="Notes" value="{{.Notes}}" rows="1" cols="150" maxlength="250">
+            </div>
+            {{ .csrfField }}
+
+	{{ if ne $.AccessEditVideo 0 }}
+            <button type="submit" class="btn btn-primary" value="Update">Update</button>
+	{{ end }}
+
+	{{ if ne $.AccessDeleteVideo 0 }}
+	    <button class="btn btn-primary" id="paste" type="button" data-toggle="modal" 
+	     data-target="#DeleteModal" data-focus="true">Delete</button>
+	{{ end }}
+
+           <a class="btn btn-primary" href="/dashboard/videos?Video={{.ID}}#Video{{.ID}}" role="button">Cancel</a>
+
+	   <button type="reset" class="btn btn-primary" value="Reset">Reset</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

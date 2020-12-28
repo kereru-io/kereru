@@ -1,0 +1,74 @@
+{{ define "title" }}Image{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Are you sure?</h5>
+          <button class="close" type="button" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+	  <form method="POST" action="/dashboard/images/delete/post">
+          <input type="hidden" name="ID" value="{{.ID}}">
+          {{ .csrfField }}
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+          <button class="btn btn-primary" type="submit" value="Submit">Yes</button>
+	  </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="pl-5 pr-5">
+          <img class="img-fluid" src="/dashboard/media/view/{{.Guid}}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="pl-5 pr-5">
+          <p>File Size: {{.FileSize}}</p>
+
+          <form method="POST" action="/dashboard/images/edit/post">
+            <input type="hidden" name="ID" value="{{.ID}}">
+            <div class="form-group">
+              <label for="ImageName">Image Name</label>
+              <input class="form-control" id="ImageName" type="text" name="ImageName" value="{{.ImageName}}" rows="1" cols="150" maxlength="250" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Image Description</label>
+              <input class="form-control" id="description" type="text" name="description" value="{{.Description}}" rows="1" cols="150" maxlength="500">
+            </div>
+            <div class="form-group">
+              <label for="Notes">Image Notes</label>
+              <input class="form-control" id="Notes" type="text" name="Notes" value="{{.Notes}}" rows="1" cols="150" maxlength="250">
+            </div>
+            {{ .csrfField }}
+
+	{{ if ne $.AccessEditImage 0 }}
+            <button type="submit" class="btn btn-primary" value="Upload">Update</button>
+	{{ end }}
+
+	{{ if ne $.AccessDeleteImage 0 }}
+	    <button class="btn btn-primary" id="paste" type="button" data-toggle="modal" 
+	     data-target="#DeleteModal" data-focus="true">Delete</button>
+	{{ end }}
+
+           <a class="btn btn-primary" href="/dashboard/images?Image={{.ID}}#Image{{.ID}}" role="button">Cancel</a>
+
+	   <button type="reset" class="btn btn-primary" value="Reset">Reset</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

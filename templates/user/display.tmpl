@@ -1,0 +1,102 @@
+{{ define "title" }}Display Options{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="pl-5 pr-5">
+          <form method="POST" action="/dashboard/change/display/post">
+            <div class="form-group">
+              <div class="form-check">
+                {{ if eq $.DisplayDraft 1 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showdraft" name="showdraft" checked>
+                {{ end }}
+                {{ if eq $.DisplayDraft 0 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showdraft" name="showdraft">
+                {{ end }}
+                <label class="form-check-label" for="shownew">Draft</label>
+              </div>
+
+              <div class="form-check">
+                {{ if eq $.DisplayReviewed 1 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showreviewed" name="showreviewed" checked>
+                {{ end }}
+                {{ if eq $.DisplayReviewed 0 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showreviewed" name="showreviewed">
+                {{ end }}
+                <label class="form-check-label" for="showreviewed">Reviewed</label>
+              </div>
+
+              <div class="form-check">
+                {{ if eq $.DisplayReady 1 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showready" name="showready" checked>
+                {{ end }}
+                {{ if eq $.DisplayReady 0 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showready" name="showready">
+                {{ end }}
+                <label class="form-check-label" for="showready">Ready</label>
+              </div>
+
+              <div class="form-check">
+                {{ if eq $.DisplayFlagged 1 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showflagged" name="showflagged" checked>
+                {{ end }}
+                {{ if eq $.DisplayFlagged 0 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showflagged" name="showflagged">
+                {{ end }}
+                <label class="form-check-label" for="showflagged">Flagged</label>
+              </div>
+
+              <div class="form-check">
+                {{ if eq $.DisplaySent 1 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showsent" name="showsent" checked>
+                {{ end }}
+                {{ if eq $.DisplaySent 0 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showsent" name="showsent">
+                {{ end }}
+                <label class="form-check-label" for="showsent">Sent</label>
+              </div>
+
+              <div class="form-check">
+                {{ if eq $.DisplayDeleted 1 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showdeleted" name="showdeleted" checked>
+                {{ end }}
+                {{ if eq $.DisplayDeleted 0 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showdeleted" name="showdeleted">
+                {{ end }}
+                <label class="form-check-label" for="showdeleted">Deleted</label>
+              </div>
+
+              <div class="form-check">
+                {{ if eq $.DisplayError 1 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showerror" name="showerror" checked>
+                {{ end }}
+                {{ if eq $.DisplayError 0 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="showerror" name="showerror">
+                {{ end }}
+                <label class="form-check-label" for="showerror">Error</label>
+              </div>
+
+              <div class="form-check">
+                {{ if eq $.DisplayPagination 1 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="pagination" name="pagination" checked>
+                {{ end }}
+                {{ if eq $.DisplayPagination 0 }}
+                  <input class="form-check-input" type="checkbox" value="1" id="pagination" name="pagination">
+                {{ end }}
+                <label class="form-check-label" for="pagination">Pagination</label>
+              </div>
+            </div>
+
+            {{ .csrfField }}
+            <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+            <button type="reset" class="btn btn-primary" value="Reset">Reset</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

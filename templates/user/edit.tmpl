@@ -1,0 +1,64 @@
+{{ define "title" }}Edit User - {{.EditUserName}}{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Are you sure?</h5>
+          <button class="close" type="button" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+	  <form method="POST" action="/dashboard/users/delete/post">
+          <input type="hidden" name="ID" value="{{.EditUserID}}">
+          {{ .csrfField }}
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+          <button class="btn btn-primary" type="submit" value="Submit">Yes</button>
+	  </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="pl-5 pr-5">
+          <form method="POST" action="/dashboard/users/edit/post">
+            <input type="hidden" name="ID" value="{{.EditUserID}}">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input class="form-control" id="email" type="email" name="email" value="{{.EditUserEmail}}" required>
+            </div>
+
+            <div class="form-group">
+              <label for="role">Role</label>
+            <select class="form-control" id="role" name="role">
+              {{ range .Roles }}
+              {{ if eq $.EditUserRole .RoleID }}
+              <option value="{{.RoleID}}" selected>{{.RoleName}}</option>
+              {{ else if ne $.EditUserRole .RoleID }}
+              <option value="{{.RoleID}}">{{.RoleName}}</option>
+              {{ end }}
+              {{ end }}
+            </select>
+            </div>
+
+        {{ .csrfField }}
+        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+	<button class="btn btn-primary" id="paste" type="button" data-toggle="modal" 
+		data-target="#DeleteModal" data-focus="true">Delete</button>
+<a class="btn btn-primary" href="/dashboard/users" role="button">Cancel</a>
+	<button type="reset" class="btn btn-primary" value="Reset">Reset</button>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+{{ end }}

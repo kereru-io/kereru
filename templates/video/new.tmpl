@@ -1,0 +1,34 @@
+{{ define "title" }}New Video{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="pl-5 pr-5">
+          <form method="POST" action="/dashboard/videos/new/post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="UploadFile">What file to upload</label>
+              <input class="form-control" id="UploadFile" type="file" name="UploadFile" accept="video/*" required>
+            </div>
+            <div class="form-group">
+              <label for="VideoName">Video Name</label>
+              <input class="form-control" id="VideoName" type="text" name="VideoName" placeholder="Video Name" rows="1" cols="150" maxlength="250" required>
+            </div>
+            <div class="form-group">
+              <label for="Description">Video Description</label>
+              <input class="form-control" id="Description" type="text" name="Description" placeholder="Video Description" rows="1" cols="150" maxlength="500">
+            </div>
+            <div class="form-group">
+              <label for="Notes">Video Notes</label>
+              <input class="form-control" id="Notes" type="text" name="Notes" placeholder="Video Notes" rows="1" cols="150" maxlength="250">
+            </div>
+            {{ .csrfField }}
+            <button type="submit" class="btn btn-primary" value="Upload">Upload</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

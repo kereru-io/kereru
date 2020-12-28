@@ -1,0 +1,29 @@
+{{ define "title" }}User Settings{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="px-5 py-5">
+          <p><a class="btn btn-primary" href="/dashboard/user/pwd">Change Password</a></p>
+          <p><a class="btn btn-primary" href="/dashboard/user/email">Update Email Address</a></p>
+          {{ if ne $.AccessNewUser 0 }}
+          <p><a class="btn btn-primary" href="/dashboard/users/new">New User</a></p>
+          {{ end }}
+
+          {{ if ne $.AccessEditUser 0 }}
+          <p><a class="btn btn-primary" href="/dashboard/users">List Users</a></p>
+          {{ end }}
+
+          {{ if ne $.AccessRBAC 0 }}
+	  <p><a class="btn btn-primary" href="/dashboard/rbac/new">New Role</a></p>
+          <p><a class="btn btn-primary" href="/dashboard/rbac">List Roles</a></p>
+          {{ end }}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,34 @@
+{{ define "title" }}Users{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+<div class="container py-5">
+  <div class="row d-none d-md-flex">
+    <div class="col-md border text-center">
+      Username
+    </div>
+    <div class="col-md border text-center">
+      Access
+    </div>
+    <div class="col-md-2 border text-center">
+      Edit
+    </div>
+  </div>
+
+{{ range .Users}}
+  <div class="row">
+    <div class="col-md border">
+     {{.Username}}
+    </div>
+    <div class="col-md border">
+     {{ .Access }}
+    </div>
+    <div class="col-md-2 border text-center">
+    <a class="btn btn-primary" href="/dashboard/users/edit?ID={{.ID}}" role="button">EDIT</a>
+    </div>
+  </div>
+{{ end }}
+</div>
+
+</section>
+{{ end }}

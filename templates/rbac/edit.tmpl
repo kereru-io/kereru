@@ -1,0 +1,181 @@
+{{ define "title" }}Edit Role{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+  <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Are you sure?</h5>
+          <button class="close" type="button" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+	  <form method="POST" action="/dashboard/rbac/delete/post">
+          <input type="hidden" name="ID" value="{{.RoleID}}">
+          {{ .csrfField }}
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+          <button class="btn btn-primary" type="submit" value="Submit">Yes</button>
+	  </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="pl-5 pr-5">
+          <form method="POST" action="/dashboard/rbac/edit/post">
+            <input type="hidden" name="RoleID" value="{{.RoleID}}">
+
+            <div class="form-group">
+		<label for="RoleName">Role Name</label>
+		<input class="form-control" id="RoleName" type="text" name="RoleName"
+		 maxlength="120" value="{{.Rolename}}" required>
+            </div>
+
+            <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" id="NewUser" type="checkbox" 
+              name="NewUser" 
+              {{ if ne $.NewUser 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="NewUser">Add a New User</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="EditUser" type="checkbox"
+              name="EditUser"
+              {{ if ne $.EditUser 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="EditUser">Edit a User</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="RBAC" type="checkbox" 
+              name="RBAC"
+              {{ if ne $.RBAC 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="RBAC">Role Editor</label>
+            </div>
+
+	    <div class="form-check">
+              <input class="form-check-input" id="TweetAudit" type="checkbox" 
+              name="TweetAudit"
+              {{ if ne $.TweetAudit 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="TweetAudit">View Tweet Audit</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="tweetpub" type="checkbox"
+              name="NewTweet"
+              {{ if ne $.NewTweet 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="NewTweet">Create New Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="EditTweet" type="checkbox"
+              name="EditTweet"
+              {{ if ne $.EditTweet 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="EditTweet">Edit Tweets</label>
+            </div>
+
+	    <div class="form-check">
+              <input class="form-check-input" id="ReviewTweet" type="checkbox" 
+              name="ReviewTweet"
+              {{ if ne $.ReviewTweet 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="ReviewTweet">Review Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="PublishTweet" type="checkbox" 
+              name="PublishTweet"
+              {{ if ne $.PublishTweet 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="PublishTweet">Publish Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="FlagTweet" type="checkbox" 
+              name="FlagTweet"
+              {{ if ne $.FlagTweet 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="FlagTweet">Flag Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="DeleteTweet" type="checkbox"
+              name="DeleteTweet"
+              {{ if ne $.DeleteTweet 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="DeleteTweet">Delete Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="ImageUpload" type="checkbox"
+              name="ImageUpload"
+              {{ if ne $.ImageUpload 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="ImageUpload">Upload Images</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="ImageEdit" type="checkbox"
+              name="ImageEdit"
+              {{ if ne $.ImageEdit 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="ImageEdit">Edit Image info</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="ImageDelete" type="checkbox"
+              name="ImageDelete"
+              {{ if ne $.ImageDelete 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="ImageDelete">Delete Images</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="VideoUpload" type="checkbox"
+              name="VideoUpload"
+              {{ if ne $.VideoUpload 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="VideoUpload">Upload Videos</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="VideoEdit" type="checkbox"
+              name="VideoEdit"
+              {{ if ne $.VideoEdit 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="VideoEdit">Edit Video info</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="VideoDelete" type="checkbox"
+              name="VideoDelete"
+              {{ if ne $.VideoDelete 0 }} checked {{ end }}
+              value ="Y">
+              <label class="form-check-label" for="VideoDelete">Delete Videos</label>
+            </div>
+            </div>
+
+            {{ .csrfField }}
+            <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+		<button class="btn btn-primary" id="paste" type="button" data-toggle="modal" 
+		data-target="#DeleteModal" data-focus="true">Delete</button>
+		<a class="btn btn-primary" href="/dashboard/rbac" role="button">Cancel</a>
+		<button type="reset" class="btn btn-primary" value="Reset">Reset</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

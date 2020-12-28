@@ -1,0 +1,107 @@
+{{ define "title" }}New Role{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="pl-5 pr-5">
+          <form method="POST" action="/dashboard/rbac/new/post">
+
+            <div class="form-group">
+              <label for="RoleName">Role Name</label>
+              <input class="form-control" id="RoleName" type="text" name="RoleName" maxlength="120" placeholder="Name of new role" required>
+            </div>
+
+            <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" id="NewUser" type="checkbox" name="NewUser" value ="Y">
+              <label class="form-check-label" for="NewUser">Add a New User</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="EditUser" type="checkbox" name="EditUser" value ="Y">
+              <label class="form-check-label" for="EditUser">Edit a User</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="RBAC" type="checkbox" name="RBAC" value ="Y">
+              <label class="form-check-label" for="RBAC">Role Editor</label>
+            </div>
+
+	    <div class="form-check">
+              <input class="form-check-input" id="TweetAudit" type="checkbox" name="TweetAudit" value ="Y">
+              <label class="form-check-label" for="TweetAudit">View Tweet Audit</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="NewTweet" type="checkbox" name="NewTweet" value ="Y">
+              <label class="form-check-label" for="NewTweet">Create New Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="EditTweet" type="checkbox" name="EditTweet" value ="Y">
+              <label class="form-check-label" for="EditTweet">Edit Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="ReviewTweet" type="checkbox" name="ReviewTweet" value ="Y">
+              <label class="form-check-label" for="ReviewTweet">Review Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="PublishTweet" type="checkbox" name="PublishTweet" value ="Y">
+              <label class="form-check-label" for="PublishTweet">Publish Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="FlagTweet" type="checkbox" name="FlagTweet" value ="Y">
+              <label class="form-check-label" for="FlagTweet">Flag Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="DeleteTweet" type="checkbox" name="DeleteTweet" value ="Y">
+              <label class="form-check-label" for="DeleteTweet">Delete Tweets</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="ImageUpload" type="checkbox" name="ImageUpload" value ="Y">
+              <label class="form-check-label" for="ImageUpload">Upload Images</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="ImageEdit" type="checkbox" name="ImageEdit" value ="Y">
+              <label class="form-check-label" for="ImageEdit">Edit Image info</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="ImageDelete" type="checkbox" name="ImageDelete" value ="Y">
+              <label class="form-check-label" for="ImageDelete">Delete Images</label>
+            </div>
+
+	    <div class="form-check">
+              <input class="form-check-input" id="VideoUpload" type="checkbox" name="VideoUpload" value ="Y">
+              <label class="form-check-label" for="VideoUpload">Upload Videos</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="VideoEdit" type="checkbox" name="VideoEdit" value ="Y">
+              <label class="form-check-label" for="VideoEdit">Edit Video info</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" id="VideoDelete" type="checkbox" name="videoDelete" value ="Y">
+              <label class="form-check-label" for="VideoDelete">Delete Videos</label>
+            </div>
+            </div>
+
+            {{ .csrfField }}
+            <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+	    <a class="btn btn-primary" href="/dashboard/user/settings" role="button">Cancel</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

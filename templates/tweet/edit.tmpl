@@ -1,0 +1,159 @@
+{{ define "title" }}Edit Tweet{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+ <div class="modal fade" id="selectMediaModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">Select Media</h5>
+     <nav class="ml-auto">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+       <a class="nav-item nav-link active" id="ImageModal" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Images</a>
+       <a class="nav-item nav-link" id="VideoModal" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Videos</a>
+      </div>
+     </nav>
+     <button class="close" type="button" data-dismiss="modal">
+      <span>&times;</span>
+     </button>
+    </div>
+    <div class="modal-body">
+     <div id="mediapicker" data-page="1" data-totalpages="1" data-selectid="{{ .MediaID }}" data-selecttype="{{ .MediaType }}" data-tab="{{ .MediaType }}" data-guid="{{ .MediaGUID }}" class="container-fluid">
+      <div class="row">
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+      </div>
+      <div class="row">
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+      </div>
+      <div class="row">
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+      </div>
+     </div>
+    </div>
+    <div class="modal-footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-2">
+       </div>
+       <div class="col">
+        <ul class="pagination justify-content-center">
+         <li class="page-item"><a id="firstpage" class="mediapage page-link">&lt;&lt;</a></li>
+         <li class="page-item"><a id="backpage" class="mediapage page-link">&lt;</a></li>
+         <li class="page-item"><a id="thispage" class="thispage mediapage page-link">7</a></li>
+         <li class="page-item"><a id="nextpage" class="mediapage page-link">&gt;</a></li>
+         <li class="page-item"><a id="lastpage" class="mediapage page-link">&gt;&gt;</a></li>
+        </ul>
+       </div>
+       <div class="col-2">
+        <button class="btn btn-primary" id="SaveModal" type="submit" data-dismiss="modal">Save</button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="modal fade" id="pasteDateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">Paste Date and Time</h5>
+     <button class="close" type="button" data-dismiss="modal">
+      <span>&times;</span>
+     </button>
+    </div>
+    <div class="modal-body">
+     <input class="form-control" id="pasteDateModalInput">
+    </div>
+    <div class="modal-footer">
+     <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+     <button class="btn btn-primary" id="pasteDateModalSave" type="submit" data-dismiss="modal">Save</button>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col">
+    <div class="pl-5 pr-5">
+     <form id="EditForm" method="POST" action="/dashboard/tweets/edit/post">
+      <input type="hidden" name="TweetID" value="{{.TweetID}}">
+      <div class="form-row">
+       <div class="col">
+        <div class="form-group">
+         <label for="date">Date (UTC)</label>
+         <input class="form-control" id="date" type="date" name="date" value="{{ .Date }}" required>
+        </div>
+       </div>
+       <div class="col">
+        <div class="form-group">
+         <label for="time">Time (UTC)</label>
+         <div class="input-group">
+          <input class="form-control" id="time" type="time" name="time" value="{{ .Time }}" required step="1">
+          <div class="input-group-append">
+           <button class="btn btn-outline-primary" id="paste" type="button" data-toggle="modal" data-target="#pasteDateModal" data-focus="true">&#x1f4cb;</button>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="form-group">
+       <label for="tweet">Tweet</label>
+       <textarea class="form-control" id="tweet" name="tweet" required rows="4" cols="50" maxlength="2000">{{ .Message }}</textarea>
+       <div class="valid-feedback"></div>
+       <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group">
+       <label for="tweet">Notes</label>
+       <textarea class="form-control" id="notes" name="notes" rows="1" cols="150" maxlength="2000">{{ .Notes }}</textarea>
+       <div class="valid-feedback"></div>
+       <div class="invalid-feedback"></div>
+      </div>
+
+      <div class="form-group mb-0">
+       <label for="MediaID">Media</label>
+       <input id="MediaID" type="hidden" name="MediaID" value="{{ .MediaID }}">
+       <input id="MediaType" type="hidden" name="MediaType" value="{{ .MediaType }}">
+      </div>
+      <div class="form-group">
+       <div class="form-row">
+        <div id="thumbview" class="col col-sm-6 col-md-2 d-none">
+         <div class="card bg-dark text-white text-right">
+          <img class="card-img img-thumbnail img-fluid" id="mediathumb"
+           src="" alt="Card image">
+          <div class="card-img-overlay p-0" data-toggle="modal" data-target="#selectMediaModal">
+           <button class="align-top align-right btn btn-light"
+            id="MediaRemove" type="button">&times;</button>
+          </div>
+         </div>
+        </div>
+        <div id="addmediaview" class="col-2">
+         <button class="btn btn-primary" id="addmedia" type="button"
+          data-toggle="modal" data-target="#selectMediaModal"
+          data-focus="true">Add Media</button>
+        </div>
+       </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+      <a class="btn btn-primary" href="/dashboard/tweets?Tweet={{ .TweetID }}#Tweet{{ .TweetID }}" role="button">Cancel</a>
+      <button type="reset" class="btn btn-primary" value="Reset">Reset</button>
+     {{ .csrfField }}
+     </form>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+{{ end }}

@@ -1,0 +1,35 @@
+{{ define "title" }}Roles{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+
+<div class="container py-5">
+  <div class="row d-none d-md-flex">
+    <div class="col-md-3 border text-center">
+      Role Name
+    </div>
+    <div class="col-md border text-center">
+      Access
+    </div>
+    <div class="col-md-2 border text-center">
+      Edit
+    </div>
+  </div>
+
+{{ range .Roles}}
+  <div class="row">
+    <div class="col-md-3 border">
+     {{.Name}}
+    </div>
+    <div class="col-md border">
+     {{ .Access }}
+    </div>
+    <div class="col-md-2 border text-center">
+     <a class="btn btn-primary" href="/dashboard/rbac/edit?ID={{.ID}}">EDIT</a>
+    </div>
+  </div>
+{{ end }}
+</div>
+
+</section>
+{{ end }}

@@ -1,0 +1,168 @@
+{{ define "title" }}Update Tweet Status{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+ <div class="modal fade" id="selectMediaModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">Select Media</h5>
+     <nav class="ml-auto">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+       <a class="nav-item nav-link active" id="ImageModal" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Images</a>
+       <a class="nav-item nav-link" id="VideoModal" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Videos</a>
+      </div>
+     </nav>
+     <button class="close" type="button" data-dismiss="modal">
+      <span>&times;</span>
+     </button>
+    </div>
+    <div class="modal-body">
+     <div id="mediapicker" data-page="1" data-totalpages="1" data-selectid="{{ .MediaID }}" data-selecttype="{{ .MediaType }}" data-tab="{{ .MediaType }}" data-guid="{{ .MediaGUID }}" class="container-fluid">
+      <div class="row">
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+      </div>
+      <div class="row">
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+      </div>
+      <div class="row">
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+       <div class="col"> </div>
+      </div>
+     </div>
+    </div>
+    <div class="modal-footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-2">
+       </div>
+       <div class="col">
+        <ul class="pagination justify-content-center">
+         <li class="page-item"><a id="firstpage" class="mediapage page-link">&lt;&lt;</a></li>
+         <li class="page-item"><a id="backpage" class="mediapage page-link">&lt;</a></li>
+         <li class="page-item"><a id="thispage" class="thispage mediapage page-link">7</a></li>
+         <li class="page-item"><a id="nextpage" class="mediapage page-link">&gt;</a></li>
+         <li class="page-item"><a id="lastpage" class="mediapage page-link">&gt;&gt;</a></li>
+        </ul>
+       </div>
+       <div class="col-2">
+        <button class="btn btn-primary" id="SaveModal" type="submit" data-dismiss="modal">Save</button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">Are you sure?</h5>
+     <button class="close" type="button" data-dismiss="modal">
+      <span>&times;</span>
+     </button>
+    </div>
+    <div class="modal-footer">
+     <form method="POST" action="/dashboard/tweets/delete/post">
+      <input type="hidden" name="ID" value="{{.ID}}">
+      {{ .csrfField }}
+      <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+      <button class="btn btn-primary" type="submit" value="Submit">Yes</button>
+     </form>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col">
+    <div class="pl-5 pr-5">
+{{ if eq "reviewed" .Action }}
+     <form method="POST" action="/dashboard/tweets/review/post">
+{{ end }}
+{{ if eq "published" .Action }}
+     <form method="POST" action="/dashboard/tweets/publish/post">
+{{ end }}
+     <input type="hidden" name="ID" value="{{.ID}}">
+     <div class="form-row">
+       <div class="col">
+        <label for="date">Date (UTC)</label>
+        <input class="form-control" id="date" type="date" name="date" value="{{ .Date }}" required readonly>
+       </div>
+       <div class="col">
+        <label for="time">Time (UTC)</label>
+        <input class="form-control" id="time" type="time" name="time" value="{{ .Time }}" required step="1" readonly>
+       </div>
+      </div>
+      <div class="form-group">
+       <label for="tweet">Tweet</label>
+       <textarea class="form-control" id="tweet" name="tweet" required rows="4" cols="50" maxlength="2000" readonly>{{ .Message }}</textarea>
+       <div class="valid-feedback"></div>
+       <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group">
+       <label for="tweet">Notes</label>
+       <textarea class="form-control" id="notes" name="notes" rows="1" cols="150" maxlength="2000" readonly>{{ .Notes }}</textarea>
+       <div class="valid-feedback"></div>
+       <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group mb-0">
+       <label for="MediaID">Media</label>
+       <input id="MediaID" type="hidden" name="MediaID" value="{{ .MediaID }}">
+       <input id="MediaType" type="hidden" name="MediaType" value="{{ .MediaType }}">
+      </div>
+      <div class="form-group">
+       <div class="form-row">
+        <div id="thumbview" class="col col-sm-6 col-md-2 d-none">
+         <div class="card bg-dark text-white text-right">
+          <img class="card-img img-thumbnail img-fluid" id="mediathumb"
+           src="" alt="Card image">
+         </div>
+        </div>
+       </div>
+      </div>
+{{ if eq "reviewed" .Action }}
+{{ if ne .AccessReviewTweet 0 }}
+     <input type="hidden" name="ACTION" value="reviewed">
+     <button type="submit" class="btn btn-primary" value="Submit">Reviewed</button>
+{{ end }}
+{{ end }}
+{{ if eq "published" .Action }}
+{{ if ne .AccessPublishTweet 0 }}
+     <input type="hidden" name="ACTION" value="publish">
+     <button type="submit" class="btn btn-primary" value="Submit">Publish</button>
+{{ end }}
+{{ end }}
+{{ if ne .AccessEditTweet 0 }}
+     <a class="btn btn-primary" href="/dashboard/tweets/edit?ID={{.ID}}" role="button">Edit</a>
+{{ end }}
+{{ if ne .AccessFlagTweet 0 }}
+     <a class="btn btn-primary" href="/dashboard/tweets/flag/post?ID={{.ID}}" role="button">Flag</a>
+{{ end }}
+{{ if ne .AccessDeleteTweet 0 }}
+     <button class="btn btn-primary" id="paste" type="button" data-toggle="modal" 
+      data-target="#DeleteModal" data-focus="true">Delete</button>
+{{ end }}
+     <a class="btn btn-primary" href="/dashboard/tweets?Tweet={{.ID}}#Tweet{{.ID}}" role="button">Cancel</a>
+{{ if ne .AccessAuditTweet 0 }}
+     <a class="btn btn-primary" href="/dashboard/tweets/audit?ID={{.ID}}" role="button">Audit</a>
+{{ end }}
+     {{ .csrfField }}
+     </form>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+{{ end }}

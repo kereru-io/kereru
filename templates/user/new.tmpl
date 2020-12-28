@@ -1,0 +1,53 @@
+{{ define "title" }}New User{{ end }}
+{{ define "head" }}
+{{ end }}
+{{ define "content" }}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="pl-5 pr-5">
+          <form method="POST" action="/dashboard/users/new/post">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input class="form-control" id="username" type="text" name="username" maxlength="50" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+              <label for="firstname">First name</label>
+              <input class="form-control" id="firstname" type="text" name="firstname" maxlength="50" placeholder="First name" required>
+            </div>
+            <div class="form-group">
+              <label for="lastname">Last name</label>
+              <input class="form-control" id="lastname" type="text" name="lastname" maxlength="50" placeholder="Last name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input class="form-control" id="email" type="email" name="email" maxlength="120" placeholder="Email address" required>
+            </div>
+            <div class="form-group">
+              <label for="passwordA">Password</label>
+              <input class="form-control" id="passwordA" type="password" name="passwordA" maxlength="512" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+              <label for="passwordB">Confirm Password</label>
+              <input class="form-control" id="passwordB" type="password" name="passwordB" maxlength="512" placeholder="Confirm Password" required>
+            </div>
+
+            <div class="form-group">
+              <label for="role">Role</label>
+              <select class="form-control" id="role" name="role">
+              {{ range .Roles }}
+              <option value="{{.RoleID}}">{{.RoleName}}</option>
+              {{ end }}
+              </select>
+            </div>
+
+            {{ .csrfField }}
+            <button type="submit" class="btn btn-primary" value="Setup">New User</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

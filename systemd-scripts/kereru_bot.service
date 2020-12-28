@@ -1,0 +1,11 @@
+[Unit]
+Description=Kereru Bot
+After=mariadb.service
+
+[Service]
+User=kereru
+ExecStart=/usr/bin/kereru_bot
+
+[Install]
+WantedBy=multi-user.target
+

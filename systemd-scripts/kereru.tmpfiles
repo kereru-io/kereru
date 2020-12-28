@@ -1,0 +1,2 @@
+d /var/kereru/uploads 0755 kereru kereru
+d /var/kereru/uploads/thumbs 0755 kereru kereru

@@ -1,0 +1,27 @@
+{{ define "title" }}Audit of Tweet{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+<div class="container py-5">
+  <div class="row d-none d-md-flex">
+    <div class="col-12 col-md border text-center">
+      Time
+    </div>
+    <div class="col-12 col-md border text-center">
+      User
+    </div>
+    <div class="col-12 col-md border text-center">
+      Status
+    </div>
+  </div>
+
+  {{ range .Events}}
+  <div class="row">
+    <div class="col-12 col-md border py-2">{{ .Time }}</div>
+    <div class="col-12 col-md border py-2">{{ .User }}</div>
+    <div class="col-12 col-md border py-2">{{ .Status }}</div>
+  </div>
+  {{ end }}
+</div>
+</section>
+{{ end }}

@@ -1,0 +1,22 @@
+{{ define "title" }}Forgot Password{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="pl-5 pr-5">
+          <form method="POST" action="/forgot/post">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input class="form-control" id="email" type="text" name="email" placeholder="test@example.com">
+            </div>
+            {{ .csrfField }}
+            <button type="submit" class="btn btn-primary" value="Send Password Reset">Send Password Reset</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

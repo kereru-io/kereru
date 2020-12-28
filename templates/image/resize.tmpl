@@ -1,0 +1,27 @@
+{{ define "title" }}Auto-resize Image{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col">
+    <div class="pl-5 pr-5">
+     <div class="container-fluid p-0">
+      <div class="row">
+       <div class="col">
+        <p>The file uploaded is larger than is supported by Twitter. Do you want Kereru to automatically resize?</p>
+       </div>
+      </div>
+      <div class="row">
+       <div class="col">
+        <a class="btn btn-primary" href="/dashboard/images" role="button">No</a>
+        <a class="btn btn-primary" href="/dashboard/images/resize/post?GUID={{.GUID}}" role="button">Yes</a>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+{{ end }}

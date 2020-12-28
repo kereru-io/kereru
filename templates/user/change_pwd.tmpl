@@ -1,0 +1,30 @@
+{{ define "title" }}Change Password{{ end }}
+{{ define "head" }}{{ end }}
+{{ define "content" }}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="pl-5 pr-5">
+          <form method="POST" action="/dashboard/user/pwd/post">
+            <div class="form-group">
+              <label for="username">Old Password</label>
+              <input class="form-control" id="passwordO" type="password" maxlength="512" name="passwordO">
+            </div>
+            <div class="form-group">
+              <label for="username">New Password</label>
+              <input class="form-control" id="passwordA" type="password" maxlength="512" name="passwordA">
+            </div>
+            <div class="form-group">
+              <label for="username">New Password</label>
+              <input class="form-control" id="passwordB" type="password" maxlength="512" name="passwordB">
+            </div>
+            {{ .csrfField }}
+            <button type="submit" class="btn btn-primary" value="Changepwd">Change Password</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
